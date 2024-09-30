@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Email Newsletter Designer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+            color: #35404D;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+        h1 {
+            font-size: 28px;
+        }
+        h2 {
+            font-size: 24px;
+            margin-top: 40px;
+        }
+        .editor {
+            margin-bottom: 40px;
+        }
+        .editor label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            color: #35404D;
+        }
+        .editor input, .editor textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            background-color: #f9f9f9;
+        }
+        .editor input:focus, .editor textarea:focus {
+            outline: none;
+            border-color: #25dad0;
+        }
+        .preview {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fdfdfd;
+            margin-top: 30px;
+        }
+        .preview h1 {
+            color: #25dad0;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .news-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 15px;
+            margin: 15px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease-in-out;
+        }
+        .news-item:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+        }
+        .news-item img {
+            width: 150px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-right: 20px;
+        }
+        .news-item h3 {
+            color: #35404D;
+            font-size: 18px;
+            margin: 0 0 10px 0;
+            font-weight: 700;
+        }
+        .news-item p {
+            color: #666;
+            font-size: 14px;
+            margin: 0;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #25dad0;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #1db5a5;
+        }
+        .btn:focus {
+            outline: none;
+        }
+        .social-icons {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .social-icons a {
+            margin: 0 10px;
+            display: inline-block;
+        }
+        .social-icons img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+        .social-icons img:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Professional Email Newsletter Designer</h1>
+
+    <div class="editor">
+        <label for="recipients">Recipient Emails (comma separated):</label>
+        <input type="text" id="recipients" placeholder="Enter recipient emails" required />
+
+        <label for="title">Email Title:</label>
+        <input type="text" id="title" placeholder="Enter the email title" required oninput="updatePreview()">
+
+        <label for="heroImage">Hero Image URL:</label>
+        <input type="text" id="heroImage" placeholder="Enter the URL of the hero image" oninput="updatePreview()">
+
+        <label for="content">Email Content:</label>
+        <textarea id="content" rows="5" placeholder="Write your email content here..." required oninput="updatePreview()"></textarea>
+
+        <label for="news1">News Item 1 Title:</label>
+        <input type="text" id="news1" placeholder="Title of News Item 1" required oninput="updatePreview()">
+        <input type="text" id="news1Desc" placeholder="Description of News Item 1" required oninput="updatePreview()">
+        <label for="news1Image">News Item 1 Image URL:</label>
+        <input type="text" id="news1Image" placeholder="Enter URL for News Item 1 image" required oninput="updatePreview()">
+
+        <label for="news2">News Item 2 Title:</label>
+        <input type="text" id="news2" placeholder="Title of News Item 2" required oninput="updatePreview()">
+        <input type="text" id="news2Desc" placeholder="Description of News Item 2" required oninput="updatePreview()">
+        <label for="news2Image">News Item 2 Image URL:</label>
+        <input type="text" id="news2Image" placeholder="Enter URL for News Item 2 image" required oninput="updatePreview()">
+
+        <button class="btn" onclick="sendEmail()">Send Email</button>
+    </div>
+
+    <h2>Email Preview:</h2>
+    <div class="preview" id="preview">
+        <h1 id="previewTitle">Welcome to Our Website</h1>
+        <img id="previewHeroImage" src="" alt="Hero Image" style="width: 100%; display: none; border-radius: 8px; margin-bottom: 20px;">
+        <p id="previewContent">This is an introductory text about the website and the services offered.</p>
+
+        <h2>Latest News</h2>
+        <div id="previewNews"></div>
+
+        <div class="social-icons">
+            <h3>Follow us on</h3>
+            <a href="https://facebook.com" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+            </a>
+            <a href="https://twitter.com" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/en/6/60/Twitter_Logo_as_of_2021.svg" alt="Twitter">
+            </a>
+            <a href="https://instagram.com" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function updatePreview() {
+        // Update title
+        document.getElementById('previewTitle').innerText = document.getElementById('title').value || 'Welcome to Our Website';
+
+        // Update hero image
+        const heroImage = document.getElementById('heroImage').value;
+        const previewHeroImage = document.getElementById('previewHeroImage');
+        previewHeroImage.src = heroImage;
+        previewHeroImage.style.display = heroImage ? 'block' : 'none';
+
+        // Update content
+        document.getElementById('previewContent').innerText = document.getElementById('content').value || 'This is an introductory text about the website and the services offered.';
+
+        // Update news section
+        const news1Title = document.getElementById('news1').value || 'News Title 1';
+        const news1Desc = document.getElementById('news1Desc').value || 'This is a brief description of news article 1.';
+        const news1Image = document.getElementById('news1Image').value || '';
+
+        const news2Title = document.getElementById('news2').value || 'News Title 2';
+        const news2Desc = document.getElementById('news2Desc').value || 'This is a brief description of news article 2.';
+        const news2Image = document.getElementById('news2Image').value || '';
+
+        const newsHTML = `
+            <div class="news-item">
+                <img src="${news1Image}" alt="News Item 1 Image" />
+                <div>
+                    <h3>${news1Title}</h3>
+                    <p>${news1Desc}</p>
+                </div>
+            </div>
+            <div class="news-item">
+                <img src="${news2Image}" alt="News Item 2 Image" />
+                <div>
+                    <h3>${news2Title}</h3>
+                    <p>${news2Desc}</p>
+                </div>
+            </div>
+        `;
+        document.getElementById('previewNews').innerHTML = newsHTML;
+    }
+
+    function sendEmail() {
+        const recipients = document.getElementById('recipients').value.split(',').map(email => email.trim());
+        if (recipients.length === 0 || !recipients.every(email => email.includes('@'))) {
+            alert("Please enter valid email addresses.");
+            return;
+        }
+
+        // Here you would typically send the email data to your server to handle sending
+        alert("Emails sent to: " + recipients.join(', '));
+        // In a real application, you would use fetch or axios to send the data to your server
+    }
+</script>
+
+</body>
+</html>
